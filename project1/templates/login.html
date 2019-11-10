@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" href="/static/css/base.css">
+    <link rel="stylesheet" href="/static/css/iconfont.css">
+    <link rel="stylesheet" href="/static/css/reg.css">
+</head>
+<body>
+<div id="ajax-hook"></div>
+<div class="wrap">
+    <div class="wpn">
+        <div class="form-data pos">
+            <form action="" method="post">
+                {% csrf_token %} <!--django跨站请求保护机制-->
+                <a href="https://www.sustech.edu.cn/"><img src="/static/img/logo.png" class="head-logo"></a>
+                <div class="change-login">
+                    <p class="account_number on">账号登录</p>
+                </div>
+                <div class="form1">
+                    <p class="p-input pos">
+                        <label for="nameId">请输入用户名</label>
+                        <input type="text" name="username" id="nameId" required="required" >
+                        <span class="tel-warn num-err hide"><em>账号或密码错误，请重新输入</em><i class="icon-warn"></i></span>
+                    </p>
+                    <p class="p-input pos">
+                        <label for="passwordId">请输入密码</label>
+                        <input type="password" style="display:none"/>
+                        <input type="password" name="password" id="passwordId" autocomplete="new-password" required="required">
+                        <span class="tel-warn pass-err hide"><em>账号或密码错误，请重新输入</em><i class="icon-warn"></i></span>
+                    </p>
+                </div>
+                <div class="r-forget cl">
+                    <a href="{% url 'register' %}" class="z">账号注册</a>
+                    <a href="{% url 'findpass' %}" class="y">忘记密码</a>
+                </div>
+                <button class="lang-btn" type="submit">登录</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="/static/js/jquery.js"></script>
+<script src="/static/js/agree.js"></script>
+<script src="/static/js/login.js"></script>
+{% if messages %}
+    <script>
+        {% for msg in messages %}
+            alert('{{ msg.message }}')
+        {% endfor %}
+    </script>
+{% endif %}
+</body>
+</html>

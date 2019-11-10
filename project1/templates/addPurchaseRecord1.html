@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add One Purchase Record</title>
+</head>
+<body>
+<h2>Adding new Purchase Record</h2>
+<form action="/addRecord/" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="id" value="{{ obj.id }}">
+    <label for="nameId">Name:</label>
+    <input type="text" required="required" name="username" id="nameId" value="{{ obj.username }}">
+    </br>
+    <label for="dateId">Date:</label>
+    <input type="text" name="date" id="dateId" value="{{ obj.date }}">
+    </br>
+    <label for="descriptionId">Description:</label>
+    <input type="text" name="description" id="descriptionId" value="{{ obj.description }}">
+    </br>
+    <label for="moneyId">Money:</label>
+    <input type="text" required="required" name="money" id="moneyId" value="{{ obj.money }}">
+    </br>
+    <label for="typeId">Type:</label>
+    <select name="status" id="typeId">
+        <option value="0">expense</option>
+        <option value="1">income</option>
+    </select>
+    </br>
+    <button type="submit">submit</button>
+</form>
+{% if messages %}
+    <script>
+        {% for msg in messages %}
+            alert('{{ msg.message }}')
+        {% endfor %}
+    </script>
+{% endif %}
+</body>
+</html>
