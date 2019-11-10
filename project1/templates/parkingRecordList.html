@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Parking Record</title>
+    <link rel="stylesheet" href="/static/css/recordList.css">
+    <script language="JavaScript" type="text/javascript">
+        window.onload = function () {
+            var t = document.getElementById("table1");
+            for (var i = 1; i < t.rows.length; i++) {
+                t.rows[i].cells[0].innerHTML = i;
+            }
+        }
+    </script>
+
+</head>
+
+<body>
+<div>
+    <p>
+        按日期搜索:
+    <form action="" method="post">
+        {% csrf_token %}
+        <input type="date" name="searchDate" value="2019-11-08">
+        <input type="hidden" name="operationType" value="3">
+        <button type="submit" id="button2">搜索</button>
+    </form>
+    </p>
+    <p>
+        按名字搜索:
+    <form action="" method="post">
+        {% csrf_token %}
+        <input type="text" name="searchName" required="required">
+        <input type="hidden" name="operationType" value="4">
+        <button type="submit" id="button2">搜索</button>
+    </form>
+    </p>
+    <table id="table1">
+        <caption id="a">
+            <h2>SUSTech Parking Record</h2>
+        </caption>
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>License Plate Number</th>
+            <th>Entrance Number</th>
+            <th>Date</th>
+            <th>Arrival Time</th>
+            <th>Staff Name</th>
+            <th>Status</th>
+            <th>Operation</th>
+            <th>Operation</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in data %}
+            <tr>
+                <td></td>
+                <td>{{ item.plateNumber }}</td>
+                <td>{{ item.entrance }}</td>
+                <td>{{ item.arrivalDate }}</td>
+                <td>{{ item.arrivalTime }}</td>
+                <td>{{ item.staffName }}</td>
+                <td>{{ item.status }}</td>
+                <td>
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="operationType" value="1">
+                        <input type="hidden" name="itemId" value="{{ item.id }}">
+                        <button type="submit" id="button1">Update</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="operationType" value="2">
+                        <input type="hidden" name="itemId" value="{{ item.id }}">
+                        <button type="submit" id="button2">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <p></p>
+    <a href="{% url 'addParkingRecord' %}">
+        <button type="button">Add new</button>
+    </a>
+    <!--    <p>Here is to show message</p>-->
+</div>
+{% if messages %}
+    <script>
+        {% for msg in messages %}
+            alert('{{ msg.message }}')
+        {% endfor %}
+    </script>
+{% endif %}
+</body>
+</html>

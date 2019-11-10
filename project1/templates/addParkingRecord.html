@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Add One Parking Record</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" href="/static/css/base.css">
+    <link rel="stylesheet" href="/static/css/iconfont.css">
+    <link rel="stylesheet" href="/static/css/reg.css">
+</head>
+<body>
+<div id="ajax-hook"></div>
+<div class="wrap">
+    <div class="wpn">
+        <div class="form-data pos">
+            <a href=""><img src="/static/img/logo.png" class="head-logo"></a>
+            <!--<p class="tel-warn hide"><i class="icon-warn"></i></p>-->
+            <form action="/addParkingRecord/" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="id" value="{{ obj.id }}">
+                <p class="p-input pos">
+                    License plate number:
+                    <br>
+                    <input type="text" required="required" name="plateNumber" value="{{ obj.plateNumber }}">
+                </p>
+                <p class="p-input">
+                    Entrance:
+                    <br>
+                    <!--<input type="text" required="required" name="entrance" value="{{ obj.entrance }}">-->
+                    <select name="entrance">
+                        <option value="1" {% if obj.entrance == 1 %}selected{% endif %}>1</option>
+                        <option value="2" {% if obj.entrance == 2 %}selected{% endif %}>2</option>
+                        <option value="3" {% if obj.entrance == 3 %}selected{% endif %}>3</option>
+                        <option value="4" {% if obj.entrance == 4 %}selected{% endif %}>4</option>
+                        <option value="5" {% if obj.entrance == 5 %}selected{% endif %}>5</option>
+                        <option value="6" {% if obj.entrance == 6 %}selected{% endif %}>6</option>
+                        <option value="7" {% if obj.entrance == 7 %}selected{% endif %}>7</option>
+                    </select>
+                </p>
+                <p class="p-input pos">
+                    Date:
+                    <br>
+                    <input type="date" name="arrivalDate" value="{{ obj.arrivalDate|date:'Y-m-d' }}">
+                    <!--<input type="text" name="arrivalDate" id="dateId" value="{{ obj.arrivalDate }}">-->
+                </p>
+                <p class="p-input pos">
+                    Arrival Time:
+                    <br>
+                    <!--<input type="time">-->
+                    <select name="arrHour">
+                        {% for hour in hour_list %}
+                            <option value={{ hour }} {% if obj.arrHour == hour %}selected{% endif %}>{{ hour }}</option>
+                        {% endfor %}
+                    </select>
+                    <select id="arrMin" name="arrMin">
+                        {% for min in min_list %}
+                            <option value={{ min }} {% if obj.arrMin == min %}selected{% endif %}>{{ min }}</option>
+                        {% endfor %}
+                    </select>
+
+                </p>
+                <p class="p-input pos">
+                    Staff name:
+                    <br>
+                    <input type="text" required="required" name="staffName" value="{{ obj.staffName }}">
+                </p>
+                <p class="p-input">
+                    Status:
+                    <br>
+                    <select name="status" id="typeId">
+                        <option value="In" {% if obj.status == "In" %}selected{% endif %}>In</option>
+                        <option value="Out" {% if obj.status == "Out" %}selected{% endif %}>Out</option>
+                    </select>
+                </p>
+                <button class="lang-btn" type="submit">确认</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="/static/js/jquery.js"></script>
+<script src="/static/js/agree.js"></script>
+<script src="/static/js/reg.js"></script>
+{% if messages %}
+    <script>
+        {% for msg in messages %}
+            alert('{{ msg.message }}')
+        {% endfor %}
+    </script>
+{% endif %}
+</body>
+</html>

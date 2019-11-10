@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Add One Purchase Record</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" href="/static/css/base.css">
+    <link rel="stylesheet" href="/static/css/iconfont.css">
+    <link rel="stylesheet" href="/static/css/reg.css">
+</head>
+<body>
+<div id="ajax-hook"></div>
+<div class="wrap">
+    <div class="wpn">
+        <div class="form-data pos">
+            <a href=""><img src="/static/img/logo.png" class="head-logo"></a>
+            <!--<p class="tel-warn hide"><i class="icon-warn"></i></p>-->
+            <form action="/addRecord/" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="id" value="{{ obj.id }}">
+                <p class="p-input pos">
+                    Name:
+                    <br>
+                    <input type="text" required="required" name="username" id="nameId" value="{{ obj.username }}">
+                </p>
+                <p class="p-input pos">
+                    Date:
+                    <br>
+                    <input type="text" name="date" id="dateId" value="{{ obj.date }}">
+                </p>
+                <p class="p-input pos">
+                    Description:
+                    <br>
+                    <input type="text" name="description" id="descriptionId" value="{{ obj.description }}">
+                </p>
+                <p class="p-input pos">
+                    Money:
+                    <br>
+                    <input type="text" required="required" name="money" id="moneyId" value="{{ obj.money }}">
+                </p>
+                <p class="p-input">
+                    Type:
+                    <br>
+                    <select name="status" id="typeId">
+                        <option value="0">expense</option>
+                        <option value="1">income</option>
+                    </select>
+                </p>
+                <button class="lang-btn" type="submit">确认</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="/static/js/jquery.js"></script>
+<script src="/static/js/agree.js"></script>
+<script src="/static/js/reg.js"></script>
+{% if messages %}
+    <script>
+        {% for msg in messages %}
+            alert('{{ msg.message }}')
+        {% endfor %}
+    </script>
+{% endif %}
+</body>
+</html>

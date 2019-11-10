@@ -1,0 +1,51 @@
+/*居中*/
+
+div {
+    text-align: center;
+}
+/* 标题样式*/
+
+#a {
+    font-size: 20px;
+    color: blue;
+    font-style: italic;
+}
+/*表格样式*/
+
+table {
+    border: 1px solid black;
+    border-collapse: collapse;
+    border-spacing: 5px;
+    margin: 0 auto;
+    margin-bottom: 2px;
+}
+/*表格字体和边框设置*/
+
+#table1 td, th {
+    border: 1px solid rgb(156, 186, 95);
+    padding: 5px 10px;
+    font-size: 12px;
+    font-family: Verdana;
+    font-weight: bold;
+}
+/*表头背景*/
+
+#table1 th {
+    background: #6699FF
+}
+/*外边框*/
+
+#div {
+    border: solid 1px black;
+    border-spacing: 20px;
+}
+/*表单样式*/
+
+/*按钮样式*/
+
+button, #button1, #button2 {
+    background-color: #FFFFCC;
+    font-size: 12px;
+    font-family: Verdana;
+    font-weight: bold;
+}
