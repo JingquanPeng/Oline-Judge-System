@@ -1,6 +1,7 @@
 import _judger
 import os
 import subprocess
+import signal
 
 dir_work = "./"
 
@@ -12,15 +13,23 @@ def compile(lang):
         "java": "javac -J-Xms32m -J-Xmx256m main.java",
         "py3": 'python -m py_compile main.py',
     }
+
+    signal.signal(signal.SIGALRM, compile_timeout)
+    signal.alarm(1)
     p = subprocess.Popen(build_cmd[lang], shell=True, cwd=dir_work, stdout=subprocess.PIPE,
                          stderr=subprocess.PIPE)
     out, err = p.communicate()  # get compile err msg
     if p.returncode == 0:
         return True
     else:
-        print("Compile Error\n----")
+        print("Compile Error")
         print(err.decode("utf-8"), out.decode("utf-8"))
         return False
+
+
+def compile_timeout(signum, frame):
+    print("Compile Timeout")
+    exit()
 
 
 def compare() -> int:
